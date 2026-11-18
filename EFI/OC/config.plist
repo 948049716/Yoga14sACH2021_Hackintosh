@@ -1023,7 +1023,7 @@
 				<key>BundlePath</key>
 				<string>BlueToolFixup.kext</string>
 				<key>Comment</key>
-				<string>V2.7.2 | BlueToolFixup.kext</string>
+				<string>V2.7.3 | BlueToolFixup.kext (FixA2DP)</string>
 				<key>Enabled</key>
 				<true/>
 				<key>ExecutablePath</key>
@@ -2384,6 +2384,10 @@
 			</dict>
 			<key>7C436110-AB2A-4BBB-A880-FE41995C9F82</key>
 			<dict>
+				<key>SystemAudioVolume</key>
+				<data>
+				Rg==
+				</data>
 				<key>bluetoothExternalDongleFailed</key>
 				<data>
 				AA==
@@ -2393,7 +2397,7 @@
 				AAAAAAAAAAAAAAAAAAA=
 				</data>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 -FIPeriodic -vi2c-force-polling</string>
+				<string>keepsyms=1 debug=0x100 -FIPeriodic -vi2c-force-polling -btlfxa2dpcheck</string>
 				<key>csr-active-config</key>
 				<data>
 				AwgAAA==
@@ -2518,13 +2522,13 @@
 			<key>AudioCodec</key>
 			<integer>0</integer>
 			<key>AudioDevice</key>
-			<string>PciRoot(0x0)/Pci(0x8,0x1)/Pci(0x0,0x6)</string>
+			<string>PciRoot(0x1)/Pci(0x8,0x1)/Pci(0x0,0x6)</string>
 			<key>AudioOutMask</key>
 			<integer>1</integer>
 			<key>AudioSupport</key>
-			<false/>
+			<true/>
 			<key>DisconnectHda</key>
-			<false/>
+			<true/>
 			<key>MaximumGain</key>
 			<integer>-15</integer>
 			<key>MinimumAssistGain</key>
@@ -2583,6 +2587,20 @@
 				<false/>
 				<key>Path</key>
 				<string>OpenCanopy.efi</string>
+			</dict>
+			<dict>
+				<key>Arguments</key>
+				<string></string>
+				<key>Comment</key>
+				<string>HDA Boot Chime Driver</string>
+				<key>Enabled</key>
+				<true/>
+				<key>HideVerbose</key>
+				<false/>
+				<key>LoadEarly</key>
+				<false/>
+				<key>Path</key>
+				<string>AudioDxe.efi</string>
 			</dict>
 			<dict>
 				<key>Arguments</key>
