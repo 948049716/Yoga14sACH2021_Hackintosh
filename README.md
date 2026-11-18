@@ -17,6 +17,27 @@ Step-by-Step Guide on How to Install macOS on Yoga 14s ACH2021（手把手教你
 
 > README文件仅为汇总，详细内容请在wiki中查看或者点击标题跳转对应wiki。
 
+# 免重装无损更新指南（OpenCore 1.0.8 · 支持 macOS 13 / 14 / 15）
+
+本仓库已升级至 **OpenCore 1.0.8 正式版**，修复了 I2C 触控板失灵、外设/拓展坞合盖睡死耗电、AMD TSC 唤醒时钟漂移、macOS 15 原生状态栏 Wi-Fi 与蓝牙闪烁、新款 AirPods 连接无声等问题，并新增了引导菜单内置键盘支持、真 Mac 开机“咚”声及 `ReYogaSMC 2.2.1` 电源散热套件。
+
+**如果你的电脑已经装有旧版黑苹果，完全不需要重装系统，所有软件数据与已登录的 Apple ID / iCloud 原地保留：**
+
+### 方式一：macOS 内一键自动更新（推荐）
+1. 点击仓库右上角 **`<> Code` -> `Download ZIP`** 下载最新压缩包并在 macOS 内解压（触控板未生效前先临时插外接鼠标操作）。
+2. 打开「终端」，输入 `bash `（注意后面带一个空格），将解压目录中的 **`PostInstall/update_efi.command`** 拖进终端窗口按回车：
+   ```bash
+   bash PostInstall/update_efi.command
+   ```
+   - 脚本会自动挂载内置硬盘 `EFI` 分区、将原 `EFI` 完整备份到桌面（`~/Desktop/EFI_Backup_*/`）、自动继承你原机三码（保护 iCloud 不掉线）、保护 Windows 双系统引导目录 `EFI/Microsoft`，并联动执行 **`PostInstall/optimize_macos.command`** 完成睡眠防耗电、离线安装 `ReYogaSMC.app`（`Fn+Q` 弹窗与 80% 电池养护）、安装 2.8K 内屏型号文件及修复 Chrome/Edge/VSCode 核显红块花屏。
+3. **重启电脑**，在 OpenCore 引导界面用笔记本自带键盘按一下**空格键**，选择 **`Reset NVRAM`**，重启进入桌面即全部生效！
+
+### 方式二：手动挂载覆盖（macOS 终端或 Windows `DiskGenius`）
+1. 挂载硬盘最前面的 `EFI (ESP)` 分区（macOS 终端执行 `diskutil list` 查看分区号后执行 `sudo diskutil mount disk0s1`；Windows 下使用 `DiskGenius`），**先将原有的整个 `EFI` 文件夹备份到 FAT32 U 盘**。
+2. 如当初曾自行修改过三码，将原 `EFI/OC/config.plist` 中的 `PlatformInfo -> Generic` 段落复制到新版 `EFI/OC/config.plist` 对应位置（未改过则跳过）。
+3. 仅删除 EFI 分区 `EFI/` 下的 **`BOOT`** 和 **`OC`** 两个文件夹（⚠️ **切勿删除 `Microsoft` 文件夹**以免影响 Windows 启动），将本仓库的 `EFI/BOOT` 与 `EFI/OC` 复制进去。
+4. 重启在 OpenCore 引导界面按**空格键**执行一次 **`Reset NVRAM`**，进入 macOS 后运行 `bash PostInstall/optimize_macos.command` 收尾（详见 [PostInstall/README.md](./PostInstall/README.md)）。
+
 # [电脑配置](https://github.com/TychoSuen/Yoga14sACH2021_Hackintosh/wiki/电脑配置)
 
 |   规格   | 详细信息                                               |
